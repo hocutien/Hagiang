@@ -89,6 +89,24 @@ ol.tl{list-style:none;margin:0;padding:0;display:grid;gap:0}
 .tl li.now .body{box-shadow:inset 3px 0 0 var(--buck);padding-left:10px}
 .tl li.now .t{color:var(--buck)}
 
+.cam{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.cam summary{cursor:pointer;font-family:var(--f-display);font-weight:700;font-size:18px;list-style:none;display:flex;align-items:center;gap:8px}
+.cam summary::-webkit-details-marker{display:none}
+.cam summary::after{content:"▾";margin-left:auto;color:var(--muted);font-size:14px}
+.cam:not([open]) summary::after{content:"▸"}
+.cam .legend{color:var(--muted);font-size:13px;margin:8px 0 4px}
+.cam ul{list-style:none;margin:0;padding:0}
+.cam li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:0 10px;padding:10px 0;border-top:1px solid var(--line)}
+.cam li:first-child{border-top:0}
+.cam .ct{font-variant-numeric:tabular-nums;font-weight:600;font-size:14px;text-align:right;color:var(--muted)}
+.cam .cn{font-weight:600}
+.cam .dv{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px;margin-top:4px;font-size:14px;align-items:start}
+.cam .tag{font-size:11px;font-weight:700;border-radius:4px;padding:1px 0;text-align:center;letter-spacing:.03em}
+.cam .tag.ace{background:var(--karst-soft);color:var(--karst)}
+.cam .tag.ip{background:var(--buck-soft);color:var(--buck)}
+.cam .tag.s23{background:var(--warn-soft);color:var(--warn)}
+.cam .cnote{margin-top:6px;font-size:13px;color:var(--warn);background:var(--warn-soft);border-radius:6px;padding:4px 8px}
+
 footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:12px}
 @media (prefers-reduced-motion:no-preference){.day{animation:fade .25s ease}}
 @keyframes fade{from{opacity:.4}to{opacity:1}}
@@ -176,6 +194,55 @@ const D=[
  {d:"2026-10-24",w:"T7",t:"Bay về Cần Thơ",km:"",sleep:["Về nhà",true],items:[
   ["04:15","Grab ra Nội Bài T1","",null,"m"],["06:45","✈️ VN1201 Hà Nội → Cần Thơ","",null,"m"],["09:30","Lấy xe máy → về Ngũ Lạc","~140 km",null,"m"]]}
 ];
+// Kế hoạch quay chụp theo ngày. Hàng: [giờ, điểm, ACE (Ace Pro 2), IP (iPhone 17 Pro Max), S23 (S23 Ultra), ghi chú]
+const CAM={
+"2026-10-17":[
+ ["07:00","Km 0","Gắn vòng cổ, Wind Guard gắn sẵn","Ảnh 2 người","","Kiểm tra pin và thẻ nhớ trước khi đi"],
+ ["08:00","Đèo Bắc Sum","Vòng cổ 4K60 Active HDR + FlowState + Horizon Lock, clip 20-30s mỗi cua","Ảnh toàn cảnh khi dừng","Zoom 3x-10x ruộng bậc thang","Sương dày: EV +0.3"],
+ ["09:00","Cổng Trời Quản Bạ","Timelapse ~2s/khung, 5 phút (tripod)","Ảnh dọc + 2 người","Zoom 5x-10x Núi Đôi",""],
+ ["10:00","Cán Tỷ (phụ)","","Ảnh nhanh","","Trễ giờ thì bỏ"],
+ ["11:30","Rừng thông Yên Minh","4K120 quay chậm","Quay đi bộ 4K60","","Nắng gắt: chụp chỗ bóng râm hoặc EV -0.7"],
+ ["13:30","Thẩm Mã – Chín Khoanh","Vòng cổ lúc chạy; Timelapse 5 phút nếu có mây","Ảnh toàn cảnh từ đỉnh dốc","Zoom 9 khúc cua",""],
+ ["14:45","Sủng Là – Lũng Cẩm","","Quay người, làng","Zoom chi tiết","Hoa trắng: EV -0.7. Xin phép trước khi quay mặt người dân"],
+ ["15:45","Dinh thự Sà Phìn","Horizon Lock; trong nhà tối dùng PureVideo","Quay kiến trúc","",""],
+ ["17:00","Hoàng hôn","","","","EV -0.7, WB ~5500K. Chỉ chụp khi đã dừng xe"],
+ ["18:30","Phố cổ Đồng Văn","Pro: 1-2s, ISO 100-200, EV -0.7, WB ~3800K, tripod, hẹn giờ 2s","Quay ăn thắng cố","Pro/RAW dự phòng","Cuối ngày: chép thẻ nhớ, sạc cả 3 máy"]],
+"2026-10-18":[
+ ["06:00","Chợ phiên Đồng Văn","Góc rộng đi bộ, Active HDR + FlowState","Quay chính 4K60","Zoom chân dung từ xa","Xin phép khi quay mặt người dân"],
+ ["07:45","Cột cờ Lũng Cú","Quay lúc leo bậc","Quay/chụp trên đỉnh: ảnh dọc, xoay máy chếch lên, EV -0.3","Zoom 10x vùng biên giới",""],
+ ["09:00","Cực Bắc – Xéo Lủng","","Ảnh 2 người cạnh cột mốc","Zoom dãy núi","10h30 chưa xong thì bỏ Xéo Lủng"],
+ ["10:45","Lô Lô Chải","Đi bộ góc rộng","Quay chính","Zoom nhà đất, trang phục",""],
+ ["12:30","Đường về Mã Pí Lèng","Vòng cổ, chỉ quay đoạn cua đẹp","","",""],
+ ["14:00","Mã Pí Lèng","Timelapse ~2s/khung 5-10 phút (tripod)","Quay/chụp 2 người","Zoom 5x-10x sông Nho Quế","Tránh quay thẳng vào mặt trời"],
+ ["16:00","Làng Pả Vi","","Quay đi dạo 4K60","",""],
+ ["17:00","Hoàng hôn","","","","EV -0.7, WB ~5500K. Về homestay trước 17h"],
+ ["19:30","Ngọc Minh – chụp sao","Pro 10-15s, ISO 800-1600, WB 3800-4000K, tripod","","Máy chính: Pro/Expert RAW, phơi 10-30s, tripod, hẹn giờ","Chỉ khi trời quang. Trăng bán nguyệt lặn khoảng nửa đêm (ước tính), sau 23h-0h rõ sao hơn. Mệt thì bỏ"]],
+"2026-10-19":[
+ ["07:45","Xuống bến Tu Sản","Timelapse 5 phút nếu ghé Mã Pí Lèng săn mây","","",""],
+ ["09:00","Thuyền sông Nho Quế","Máy chính: 4K60 Active HDR + Horizon Lock, EV -0.3, dây tay/áo phao","","","IP và S23 cất trong túi chống nước. Mưa lớn thì bỏ"],
+ ["11:15","Ăn trưa Mèo Vạc","","","","Sạc pin, đổ đầy xăng"],
+ ["13:00","Hẻm Khâu Vai","Vòng cổ trên đường","Quay đi bộ","Zoom vách đá, ảnh dọc EV -0.3","14h30 chưa qua Khâu Vai thì chạy thẳng Bảo Lạc"],
+ ["17:00","Bảo Lạc","","","","Tới trước 17h15, không quay đèo lúc tối"]],
+"2026-10-20":[
+ ["06:30","Bảo Lạc → đèo","Vòng cổ 4K60 Active HDR + Horizon Lock","Ảnh dọc Khau Cốc Chà khi dừng","Zoom đèo","Sương dày: EV +0.3"],
+ ["12:30","Pác Bó (phụ)","PureVideo trong hang Cốc Bó","Ảnh/quay 2 người ở suối Lê-nin","","Rời trước 15h30"],
+ ["18:30","Phố Cao Bằng tối","Pro 1s, ISO 100-200, EV -0.7, tripod hoặc lan can","Quay ăn phở chua, bánh cuốn","","Sạc đầy cả 3 máy, chép thẻ nhớ"]],
+"2026-10-21":[
+ ["06:30","Đèo Mã Phục","Vòng cổ 4K60 Active HDR","","","Mất sóng ~10km. Sạc đầy pin từ tối hôm trước"],
+ ["09:00","Thác Bản Giốc","4K120 quay nước đổ, ảnh 50MP, dây tay trên bè","Ảnh toàn cảnh từ bờ","Zoom dòng nước","Không có ND thì ban ngày KHÔNG phơi dài (cháy sáng); chỉ phơi ~1/15-1/8s khi trời râm. Lau ống kính; lau tay ướt trước khi chạm điện thoại. Mang CCCD"],
+ ["11:00","Động Ngườm Ngao","PureVideo","PureVideo/Pro, giữ máy vững","","Ảnh EV -0.3 để đèn trong hang không cháy"],
+ ["13:15","Thác Cò Là (phụ)","4K120 quay chậm","","","Quá 14h chưa rời thì bỏ"],
+ ["15:00","Núi Mắt Thần","","Ảnh 2 người + quay 4K60","Zoom núi","Nắng chiều nghiêng, EV -0.3. Rời trước 16h"],
+ ["17:00","Trả xe","","Chụp tình trạng xe","","Chép thẻ nhớ cả 3 máy, sạc đầy trước xe đêm"]],
+"2026-10-22":[
+ ["08:30","Thuyền Tam Cốc","Máy chính: 4K60 Active HDR + Horizon Lock, dây tay/áo phao","Chụp lúc lên bờ và ở chùa Bích Động (EV -0.3)","","IP và S23 cất trong túi chống nước. Sạc đầy từ sáng"],
+ ["15:30","Hang Múa","Timelapse ~2s/khung 5-10 phút (tripod)","Quay hoàng hôn 4K + ảnh 2 người","Zoom 5x-10x cánh đồng","Hoàng hôn EV -0.7, WB ~5500K. Sau 17h30 chụp giờ xanh: ACE Pro 0.5-1s, ISO 100-200. Mang đèn pin"],
+ ["18:30","Cố đô Hoa Lư","Pro 1s, ISO 100-200, EV -0.7, WB ~3800K, tripod hoặc lan can","","",""]],
+"2026-10-23":[
+ ["07:30","Thuyền Tràng An","Máy chính trên thuyền; hang tối dùng PureVideo","Quay lúc lên bờ, ở bến","Ảnh zoom núi đá vôi",""],
+ ["11:00","Chùa Bái Đính","Hyperlapse đi bộ qua hành lang, cầm máy ngang ngực","Ảnh dọc bảo tháp, EV -0.3","",""],
+ ["14:30","Về Hà Nội","","","","Chép thẻ nhớ cả 3 máy lên điện thoại/ổ cứng/Drive, sạc đầy trước chuyến bay 24/10"]]
+};
 const gm=(la,lo)=>`https://www.google.com/maps/dir/?api=1&destination=${la},${lo}&travelmode=driving`;
 function dayLink(keys){const c=keys.map(k=>`${P[k][1]},${P[k][2]}`);if(c.length<2)return null;
  let u=`https://www.google.com/maps/dir/?api=1&origin=${c[0]}&destination=${c[c.length-1]}&travelmode=driving`;
@@ -213,6 +280,12 @@ function nowIndex(day){if(day.d!==todayISO)return -1;
  const n=new Date(Date.now()+7*3600e3);const m=n.getUTCHours()*60+n.getUTCMinutes();let idx=-1;
  day.items.forEach((it,i)=>{const[h,mm]=it[0].split(":").map(Number);if(h*60+mm<=m)idx=i});return idx}
 
+function camBlock(day){
+ const rows=CAM[day.d];if(!rows)return "";
+ const dv=(c,txt)=>txt?`<div class="dv"><span class="tag ${c.toLowerCase()}">${c}</span><span>${esc(txt)}</span></div>`:"";
+ const li=rows.map(r=>`<li><span class="ct">${r[0]}</span><div><div class="cn">${esc(r[1])}</div>${dv("ACE",r[2])}${dv("IP",r[3])}${dv("S23",r[4])}${r[5]?`<div class="cnote">${esc(r[5])}</div>`:""}</div></li>`).join("");
+ return `<details class="cam" open><summary>📷 Quay chụp hôm nay</summary><p class="legend">ACE = Ace Pro 2 · IP = iPhone 17 Pro Max · S23 = S23 Ultra. Khi chạy xe: điện thoại cất trong túi có khóa, không gắn lên tay lái.</p><ul>${li}</ul></details>`}
+
 function render(i){
  const day=D[i];[...tabs.children].forEach((b,j)=>b.setAttribute("aria-selected",j===i?"true":"false"));
  const keys=stopKeys(day);const link=dayLink(keys);const ni=nowIndex(day);
@@ -227,7 +300,7 @@ function render(i){
   <div class="dayhead"><div class="eyebrow">${day.w} · ${day.d.slice(8)}/${day.d.slice(5,7)}/2026</div><h2>${esc(day.t)}</h2>
    <div class="meta">${day.km?`<span class="chip km">${day.km}</span>`:""}<span class="chip ${day.sleep[1]?"ok":"pend"}">${day.sleep[1]?"✅":"⏳"} Ngủ: ${esc(day.sleep[0])}</span></div>
    ${link?`<a class="navbtn" href="${link}" target="_blank" rel="noopener">🧭 Dẫn đường cả ngày trên Google Maps ↗</a>`:""}</div>
-  <div class="grid" style="${map?"":"grid-template-columns:1fr"}">${map}<ol class="tl">${tl}</ol></div></section>`;
+  <div class="grid" style="${map?"":"grid-template-columns:1fr"}">${map}<ol class="tl">${tl}</ol></div>${camBlock(day)}</section>`;
  document.getElementById("overview").innerHTML=mapSVG(allKeys,150,190,{thin:true,pad:10,hl:keys.length>1?keys:null,label:"Toàn chuyến"});
  try{localStorage.setItem("hg-day",String(i))}catch(e){}
  if(history.replaceState)try{history.replaceState(null,"","#d"+day.d.slice(8))}catch(e){}

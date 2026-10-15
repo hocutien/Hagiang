@@ -156,7 +156,7 @@ const P={
 // item: [time, label, note, key|null, type] type: s=stop, o=optional stop, c=check, m=misc
 const D=[
  {d:"2026-10-16",w:"T6",t:"Cần Thơ → Hà Nội → xe đêm",km:"",sleep:["Xe giường nằm",true],items:[
-  ["03:30","Ngũ Lạc → sân bay Cần Thơ","Mang CCCD 2 người",null,"m"],["09:30","✈️ VJ462 Cần Thơ → Hà Nội","",null,"m"],
+  ["03:30","Ngũ Lạc → sân bay Cần Thơ","Mang CCCD 2 người",null,"m"],["07:30","Có mặt sân bay – ký gửi","Đã check-in online (6E/6F). Quầy ký gửi ĐÓNG 8:50 – xong trước 8:15; xách tay 1 kiện ≤7kg",null,"c"],["09:00","Lên máy bay (cửa đóng 9:15)","Có mặt cửa ra máy bay trước 9:00",null,"c"],["09:30","✈️ VJ462 Cần Thơ → Hà Nội","Mã THUUZH · ghế 6E Trân / 6F Tiến",null,"m"],
   ["13:30","Phòng theo giờ + gửi vali phố cổ","Gửi vali tới tối 23/10",null,"m"],["16:30","Cà phê trứng, Hồ Gươm, phố đi bộ","","hanoi","s"],
   ["21:45","Có mặt điểm đón xe","Xe chạy 22h30 → Hà Giang ~4h30",null,"m"]]},
  {d:"2026-10-17",w:"T7",t:"Hà Giang → Đồng Văn",km:"~150 km",sleep:["Đồng Văn",false],items:[
@@ -180,10 +180,10 @@ const D=[
   ["06:30","Xuất phát Bảo Lạc","Đường xấu → QL34 thẳng TP, bỏ Pác Bó","baolac","s"],["12:30","⏰ Chưa gần Pác Bó → bỏ, về TP","",null,"c"],
   ["12:30","Khu di tích Pác Bó + ăn trưa","Rời trước 15h30","pacbo","o"],["17:00","Nhận phòng TP Cao Bằng","Phở chua, bánh cuốn","caobang","s"]]},
  {d:"2026-10-21",w:"T4",t:"Bản Giốc – Cò Là – Mắt Thần",km:"~200 km",sleep:["Xe đêm về Hà Nội",false],items:[
-  ["06:30","Rời TP Cao Bằng","Tải bản đồ offline (mất sóng đèo Mã Phục)","caobang","s"],["09:00","Thác Bản Giốc – đi bè","Mang CCCD","bangioc","s"],
+  ["06:15","Rời TP Cao Bằng","~85km, chạy ~2h15–2h30. Tải bản đồ offline (mất sóng đèo Mã Phục)","caobang","s"],["09:00","Thác Bản Giốc – đi bè","Mang CCCD","bangioc","s"],
   ["11:00","Động Ngườm Ngao + ăn trưa","Tuyến ngắn ~1 tiếng","nguomngao","s"],["13:15","Thác Cò Là","","cola","o"],
-  ["14:00","⏰ Rời khu Cò Là","",null,"c"],["15:00","Núi Mắt Thần","Đóng cửa 17h","matthan","s"],["16:00","⏰ Rời Mắt Thần về TP","",null,"c"],
-  ["17:00","✅ Trả xe Giang Sơn","Chụp ảnh xe khi trả","caobang","s"],["20:30","Xe giường nằm → Hà Nội","Tới ~4h30",null,"m"]]},
+  ["14:00","⏰ Rời khu Cò Là","",null,"c"],["15:00","Núi Mắt Thần","Đóng cửa 17h","matthan","s"],["15:30","⏰ Rời Mắt Thần về TP (muộn nhất 15:45)","~50km, ~1h30. Chậm thì bỏ Cò Là trước",null,"c"],
+  ["17:15","✅ Trả xe Giang Sơn","Về tới ~17:00–17:15. Hỏi trước có trả muộn tới 18:00 được không. Chụp ảnh xe","caobang","s"],["20:30","Xe giường nằm → Hà Nội","Tới ~4h30",null,"m"]]},
  {d:"2026-10-22",w:"T5",t:"Tam Cốc – Hang Múa – Hoa Lư",km:"",sleep:["Ninh Bình",false],items:[
   ["05:30","Limousine Hà Nội → Ninh Bình","","hanoi","s"],["08:30","Thuyền Tam Cốc","1,5–2 tiếng, mang tiền lẻ","tamcoc","s"],
   ["10:45","Chùa Bích Động","","bichdong","s"],["12:00","Ăn dê núi, nhận phòng, ngủ bù","",null,"m"],
@@ -192,7 +192,7 @@ const D=[
   ["07:30","Thuyền Tràng An","Trả phòng trước, đi sớm","trangan","s"],["11:00","Chùa Bái Đính + ăn trưa","Bảo tháp 13 tầng, nên đi xe điện","baidinh","s"],
   ["14:30","Limousine → phố cổ Hà Nội","",null,"m"],["17:00","Lấy vali, nhận KS","","hanoi","s"],["18:00","Ăn tối, soạn đồ, ngủ sớm","Báo thức 4h00",null,"m"]]},
  {d:"2026-10-24",w:"T7",t:"Bay về Cần Thơ",km:"",sleep:["Về nhà",true],items:[
-  ["04:15","Grab ra Nội Bài T1","",null,"m"],["06:45","✈️ VN1201 Hà Nội → Cần Thơ","",null,"m"],["09:30","Lấy xe máy → về Ngũ Lạc","~140 km",null,"m"]]}
+  ["04:15","Grab ra Nội Bài T1","",null,"m"],["06:45","✈️ VN1201 Hà Nội → Cần Thơ","Check-in online thường mở ~24h trước (khoảng 06:45 ngày 23/10) – chưa xác minh quầy/cửa, xem thẻ lên tàu",null,"m"],["09:30","Lấy xe máy → về Ngũ Lạc","~140 km",null,"m"]]}
 ];
 // Kế hoạch quay chụp theo ngày. Hàng: [giờ, điểm, ACE (Ace Pro 2), IP (iPhone 17 Pro Max), S23 (S23 Ultra), ghi chú]
 const CAM={
@@ -216,7 +216,7 @@ const CAM={
  ["14:00","Mã Pí Lèng","Timelapse ~2s/khung 5-10 phút (tripod)","Quay/chụp 2 người","Zoom 5x-10x sông Nho Quế","Tránh quay thẳng vào mặt trời"],
  ["16:00","Làng Pả Vi","","Quay đi dạo 4K60","",""],
  ["17:00","Hoàng hôn","","","","EV -0.7, WB ~5500K. Về homestay trước 17h"],
- ["19:30","Ngọc Minh – chụp sao","Pro 10-15s, ISO 800-1600, WB 3800-4000K, tripod","","Máy chính: Pro/Expert RAW, phơi 10-30s, tripod, hẹn giờ","Chỉ khi trời quang. Trăng bán nguyệt lặn khoảng nửa đêm (ước tính), sau 23h-0h rõ sao hơn. Mệt thì bỏ"]],
+ ["19:30","Ngọc Minh – chụp sao","Pro 10-15s, ISO 800-1600, WB 3800-4000K, tripod","","Máy chính: Pro/Expert RAW, phơi 10-30s, tripod, hẹn giờ","Chỉ khi trời quang. Trăng lặn ~23:17, sau ~23h30 rõ sao hơn. Mệt thì bỏ"]],
 "2026-10-19":[
  ["07:45","Xuống bến Tu Sản","Timelapse 5 phút nếu ghé Mã Pí Lèng săn mây","","",""],
  ["09:00","Thuyền sông Nho Quế","Máy chính: 4K60 Active HDR + Horizon Lock, EV -0.3, dây tay/áo phao","","","IP và S23 cất trong túi chống nước. Mưa lớn thì bỏ"],
@@ -228,12 +228,12 @@ const CAM={
  ["12:30","Pác Bó (phụ)","PureVideo trong hang Cốc Bó","Ảnh/quay 2 người ở suối Lê-nin","","Rời trước 15h30"],
  ["18:30","Phố Cao Bằng tối","Pro 1s, ISO 100-200, EV -0.7, tripod hoặc lan can","Quay ăn phở chua, bánh cuốn","","Sạc đầy cả 3 máy, chép thẻ nhớ"]],
 "2026-10-21":[
- ["06:30","Đèo Mã Phục","Vòng cổ 4K60 Active HDR","","","Mất sóng ~10km. Sạc đầy pin từ tối hôm trước"],
+ ["06:15","Đèo Mã Phục","Vòng cổ 4K60 Active HDR","","","Mất sóng ~10km. Sạc đầy pin từ tối hôm trước"],
  ["09:00","Thác Bản Giốc","4K120 quay nước đổ, ảnh 50MP, dây tay trên bè","Ảnh toàn cảnh từ bờ","Zoom dòng nước","Không có ND thì ban ngày KHÔNG phơi dài (cháy sáng); chỉ phơi ~1/15-1/8s khi trời râm. Lau ống kính; lau tay ướt trước khi chạm điện thoại. Mang CCCD"],
  ["11:00","Động Ngườm Ngao","PureVideo","PureVideo/Pro, giữ máy vững","","Ảnh EV -0.3 để đèn trong hang không cháy"],
  ["13:15","Thác Cò Là (phụ)","4K120 quay chậm","","","Quá 14h chưa rời thì bỏ"],
- ["15:00","Núi Mắt Thần","","Ảnh 2 người + quay 4K60","Zoom núi","Nắng chiều nghiêng, EV -0.3. Rời trước 16h"],
- ["17:00","Trả xe","","Chụp tình trạng xe","","Chép thẻ nhớ cả 3 máy, sạc đầy trước xe đêm"]],
+ ["15:00","Núi Mắt Thần","","Ảnh 2 người + quay 4K60","Zoom núi","Nắng chiều nghiêng, EV -0.3. Rời 15:30"],
+ ["17:15","Trả xe","","Chụp tình trạng xe","","Chép thẻ nhớ cả 3 máy, sạc đầy trước xe đêm"]],
 "2026-10-22":[
  ["08:30","Thuyền Tam Cốc","Máy chính: 4K60 Active HDR + Horizon Lock, dây tay/áo phao","Chụp lúc lên bờ và ở chùa Bích Động (EV -0.3)","","IP và S23 cất trong túi chống nước. Sạc đầy từ sáng"],
  ["15:30","Hang Múa","Timelapse ~2s/khung 5-10 phút (tripod)","Quay hoàng hôn 4K + ảnh 2 người","Zoom 5x-10x cánh đồng","Hoàng hôn EV -0.7, WB ~5500K. Sau 17h30 chụp giờ xanh: ACE Pro 0.5-1s, ISO 100-200. Mang đèn pin"],

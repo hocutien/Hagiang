@@ -88,6 +88,8 @@ ol.tl{list-style:none;margin:0;padding:0;display:grid;gap:0}
 .tl li.opt .name::after{content:"phụ";font-size:11px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:2px}
 .tl li.now .body{box-shadow:inset 3px 0 0 var(--buck);padding-left:10px}
 .tl li.now .t{color:var(--buck)}
+.nowbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 66px);z-index:1;box-shadow:0 2px 6px rgba(0,0,0,.08);margin:12px 0 4px;padding:10px 12px;border-radius:10px;background:var(--karst-soft);border-left:4px solid var(--buck);font-size:14px;line-height:1.5}
+.nowbar b{color:var(--buck)}
 
 .cam{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
 .cam summary{cursor:pointer;font-family:var(--f-display);font-weight:700;font-size:18px;list-style:none;display:flex;align-items:center;gap:8px}
@@ -307,7 +309,18 @@ function camBlock(day){
  const li=rows.map(r=>`<li><span class="ct">${r[0]}</span><div><div class="cn">${esc(r[1])}</div>${dv("ACE",r[2])}${dv("IP",r[3])}${dv("S23",r[4])}${r[5]?`<div class="cnote">${esc(r[5])}</div>`:""}</div></li>`).join("");
  return `<details class="cam" open><summary>📷 Quay chụp hôm nay</summary><p class="legend">ACE = Ace Pro 2 · IP = iPhone 17 Pro Max · S23 = S23 Ultra. Khi chạy xe: điện thoại cất trong túi có khóa, không gắn lên tay lái.</p><ul>${li}</ul></details>`}
 
-function render(i){
+let curIdx=-1;
+function nowBar(day,ni){if(day.d!==todayISO)return "";
+ const n=new Date(Date.now()+7*3600e3);const m=n.getUTCHours()*60+n.getUTCMinutes();
+ const hm=String(n.getUTCHours()).padStart(2,"0")+":"+String(n.getUTCMinutes()).padStart(2,"0");
+ const cur=ni>=0?day.items[ni]:null,nx=day.items[ni+1];
+ let s=`<div class="nowbar" aria-live="polite"><b>⏱ Bây giờ ${hm}</b>`;
+ s+=cur?`<div>Đang ở mốc: <b>${esc(cur[1])}</b> (từ ${cur[0]})</div>`:`<div>Chưa tới mốc đầu tiên trong ngày</div>`;
+ if(nx){const[h,mm]=nx[0].split(":").map(Number);const left=h*60+mm-m;
+  s+=`<div>Tiếp theo: <b>${esc(nx[1])}</b> lúc ${nx[0]} · còn ${left>=60?Math.floor(left/60)+" giờ "+(left%60)+" phút":left+" phút"}</div>`}
+ else s+=`<div>Đã qua mốc cuối của ngày</div>`;
+ return s+`</div>`}
+function render(i,scroll){curIdx=i;
  const day=D[i];[...tabs.children].forEach((b,j)=>b.setAttribute("aria-selected",j===i?"true":"false"));
  const keys=stopKeys(day);const link=dayLink(keys);const ni=nowIndex(day);
  const num={};keys.forEach((k,j)=>{if(!(k in num))num[k]=j+1});let used={};
@@ -320,20 +333,27 @@ function render(i){
  main.innerHTML=`<section class="day" role="tabpanel" aria-label="${day.w} ${day.d}">
   <div class="dayhead"><div class="eyebrow">${day.w} · ${day.d.slice(8)}/${day.d.slice(5,7)}/2026</div><h2>${esc(day.t)}</h2>
    <div class="meta">${day.km?`<span class="chip km">${day.km}</span>`:""}<span class="chip ${day.sleep[1]?"ok":"pend"}">${day.sleep[1]?"✅":"⏳"} Ngủ: ${esc(day.sleep[0])}</span></div>
-   ${link?`<a class="navbtn" href="${link}" target="_blank" rel="noopener">🧭 Dẫn đường cả ngày trên Google Maps ↗</a>`:""}</div>
+   ${link?`<a class="navbtn" href="${link}" target="_blank" rel="noopener">🧭 Dẫn đường cả ngày trên Google Maps ↗</a>`:""}</div>${nowBar(day,ni)}
   <div class="grid" style="${map?"":"grid-template-columns:1fr"}">${map}<ol class="tl">${tl}</ol></div>${camBlock(day)}</section>`;
  document.getElementById("overview").innerHTML=mapSVG(allKeys,150,190,{thin:true,pad:10,hl:keys.length>1?keys:null,label:"Toàn chuyến"});
+ const tb=document.getElementById("tab"+i);if(tb&&tb.scrollIntoView)try{tb.scrollIntoView({inline:"center",block:"nearest"})}catch(e){}
+ if(scroll){const el=main.querySelector(".tl li.now");if(el)try{el.scrollIntoView({block:"center",behavior:"smooth"})}catch(e){}}
  try{localStorage.setItem("hg-day",String(i))}catch(e){}
  if(history.replaceState)try{history.replaceState(null,"","#d"+day.d.slice(8))}catch(e){}
 }
 D.forEach((d,i)=>{const b=document.createElement("button");b.setAttribute("role","tab");b.id="tab"+i;
  b.innerHTML=`<span class="dw">${d.w}</span><span class="dd">${d.d.slice(8)}/${d.d.slice(5,7)}</span>`;
  if(d.d===todayISO)b.classList.add("today");b.onclick=()=>render(i);tabs.appendChild(b)});
-let start=D.findIndex(d=>d.d===todayISO);
-const h=location.hash.match(/^#d(\d\d)$/);if(h){const f=D.findIndex(d=>d.d.slice(8)===h[1]);if(f>=0)start=f}
+const todayIdx=D.findIndex(d=>d.d===todayISO);
+let start=todayIdx;
+// Trong chuyến đi: luôn mở ngày hôm nay. Ngoài chuyến đi mới dùng #dXX hoặc ngày xem gần nhất
+if(start<0){const h=location.hash.match(/^#d(\d\d)$/);if(h){const f=D.findIndex(d=>d.d.slice(8)===h[1]);if(f>=0)start=f}}
 if(start<0){try{const v=localStorage.getItem("hg-day");const s=v===null?-1:+v;if(s>=0&&s<D.length)start=s}catch(e){}}
 if(start<0||isNaN(start))start=1;
-render(start);
+render(start,true);
+// Tự cập nhật mốc hiện tại mỗi phút khi đang xem ngày hôm nay; mở lại app thì nhảy về hôm nay
+setInterval(()=>{if(todayIdx>=0&&curIdx===todayIdx)render(curIdx,false)},60000);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&todayIdx>=0)render(todayIdx,true)});
 </script>
 </body>
 </html>
